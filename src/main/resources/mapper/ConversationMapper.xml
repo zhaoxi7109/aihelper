@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhaoxi.aihelperbackend.mapper.ConversationMapper">
+    <resultMap id="conversationResultMap" type="com.zhaoxi.aihelperbackend.entity.Conversation">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="title" column="title"/>
+        <result property="model" column="model"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.zhaoxi.aihelperbackend.entity.Conversation" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO conversation (user_id, title, model, created_at, updated_at)
+        VALUES (#{userId}, #{title}, #{model}, #{createdAt}, #{updatedAt})
+    </insert>
+
+    <select id="findById" resultMap="conversationResultMap">
+        SELECT * FROM conversation WHERE id = #{id}
+    </select>
+
+    <select id="findByUserId" resultMap="conversationResultMap">
+        SELECT * FROM conversation 
+        WHERE user_id = #{userId}
+        ORDER BY updated_at DESC
+    </select>
+
+    <update id="update" parameterType="com.zhaoxi.aihelperbackend.entity.Conversation">
+        UPDATE conversation
+        SET title = #{title},
+            model = #{model},
+            updated_at = #{updatedAt}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM conversation WHERE id = #{id}
+    </delete>
+</mapper> 

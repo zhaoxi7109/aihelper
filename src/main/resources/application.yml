@@ -1,0 +1,145 @@
+spring:
+  application:
+    name: aihelper-backend
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/aihelper?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      filters: stat,wall
+      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    serialization:
+      write-dates-as-timestamps: false
+  ai:
+    mcp:
+      client:
+        studio:
+          servers-configuration: classpath:/mcp-servers-config.json
+#      amap:
+#        maps:
+#          enabled: true
+# 配置高德地图 MCP 服务器的 STDIO 连接
+
+  # Redis配置
+  data:
+    redis:
+      # Redis数据库索引（默认为0）
+      database: 0
+      # Redis服务器地址
+      host: localhost
+      # Redis服务器连接端口
+      port: 6379
+      # Redis服务器连接密码（默认为空）
+      password: 
+      # 连接超时时间（毫秒）
+      timeout: 10000
+      # 连接池配置
+      lettuce:
+        pool:
+          # 连接池最大连接数
+          max-active: 8
+          # 连接池最大阻塞等待时间（使用负值表示没有限制）
+          max-wait: -1ms
+          # 连接池中的最大空闲连接
+          max-idle: 8
+          # 连接池中的最小空闲连接
+          min-idle: 0
+
+server:
+  port: 8080
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.zhaoxi.aihelperbackend.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+    disable-swagger-default-url: true
+    display-request-duration: true
+    operations-sorter: method
+    tags-sorter: alpha
+    doc-expansion: none
+    csrf:
+      enabled: true
+    oauth:
+      use-pkce-with-authorization-code-grant: true
+  packages-to-scan: com.zhaoxi.aihelperbackend.controller
+  group-configs:
+    - group: API接口
+      paths-to-match: /api/**
+      display-name: 所有API接口
+  info:
+    title: AI助手后端API
+    description: |
+      ### 认证流程说明
+      1. 用户注册：使用 `/api/verification/code` 获取验证码，然后调用 `/api/auth/register` 完成注册
+      2. 用户登录：可选择密码登录 `/api/auth/login` 或验证码登录 `/api/auth/login/code`
+      3. 密码重置：使用 `/api/verification/code` 获取验证码，然后调用 `/api/auth/reset-password` 完成重置
+      
+      所有获取到的Token需要在后续请求中通过Authorization头部传递：`Authorization: Bearer {token}`
+    version: 1.0.0
+    contact:
+      name: Zhaoxi
+      email: support@example.com
+
+dashscope:
+  api-key: ${DASHSCOPE_API_KEY:your-api-key-here}
+  model: deepseek-r1
+
+jwt:
+  secret: ${JWT_SECRET:aihelperSecretKeyForJwtTokenGeneration123456789012}
+  expiration: 86400000  # 24小时（毫秒）
+
+# 应用程序自定义配置
+app:
+  # 异常处理器配置
+  exception-handler:
+    enabled: false  # 默认禁用全局异常处理器，解决与Swagger的冲突问题
+  
+  # 头像生成配置
+  avatar:
+    # 头像尺寸，支持：256*256, 512*512, 1024*1024
+    size: ${AVATAR_SIZE:512*512}
+    # AI头像存储目录
+    directory: ${AVATAR_DIR:avatars/ai/}
+    # 是否为新用户自动生成AI头像
+    auto-generate-for-new-user: ${AUTO_GENERATE_AVATAR:true}
+
+# 日志配置
+logging:
+  level:
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
+    com.zhaoxi.aihelperbackend: INFO
+    org.springframework.security: INFO
+
+# 阿里云OSS配置
+aliyun:
+  oss:
+    endpoint: ${OSS_ENDPOINT:https://oss-cn-beijing.aliyuncs.com}
+    bucket-name: ${OSS_BUCKET:aihelper-images}
+    region: ${OSS_REGION:cn-beijing}
+    url-prefix: ${OSS_URL_PREFIX:https://aihelper-image.oss-cn-beijing.aliyuncs.com/}

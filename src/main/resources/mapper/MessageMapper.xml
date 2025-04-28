@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhaoxi.aihelperbackend.mapper.MessageMapper">
+    <resultMap id="messageResultMap" type="com.zhaoxi.aihelperbackend.entity.Message">
+        <id property="id" column="id"/>
+        <result property="conversationId" column="conversation_id"/>
+        <result property="role" column="role"/>
+        <result property="content" column="content"/>
+        <result property="reasoningContent" column="reasoning_content"/>
+        <result property="order" column="message_order"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.zhaoxi.aihelperbackend.entity.Message" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO message (conversation_id, role, content, reasoning_content, message_order, created_at, updated_at)
+        VALUES (#{conversationId}, #{role}, #{content}, #{reasoningContent}, #{order}, #{createdAt}, #{updatedAt})
+    </insert>
+
+    <select id="findById" resultMap="messageResultMap">
+        SELECT * FROM message WHERE id = #{id}
+    </select>
+
+    <select id="findByConversationId" resultMap="messageResultMap">
+        SELECT * FROM message 
+        WHERE conversation_id = #{conversationId}
+        ORDER BY message_order ASC
+    </select>
+
+    <update id="update" parameterType="com.zhaoxi.aihelperbackend.entity.Message">
+        UPDATE message
+        SET content = #{content},
+            reasoning_content = #{reasoningContent},
+            updated_at = #{updatedAt}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteByConversationId">
+        DELETE FROM message WHERE conversation_id = #{conversationId}
+    </delete>
+
+    <delete id="deleteById">
+        DELETE FROM message WHERE id = #{id}
+    </delete>
+</mapper>
