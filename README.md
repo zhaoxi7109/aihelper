@@ -1,36 +1,103 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DeepSeek Clone
 
-## Getting Started
+这是一个基于Next.js构建的DeepSeek AI聊天应用克隆项目，提供了与DeepSeek AI模型交互的现代Web界面。
 
-First, run the development server:
+## 项目特点
+
+- 🤖 集成DeepSeek AI聊天模型（deepseek-r1）
+- 🌐 现代化、响应式用户界面
+- 🔒 用户认证与会话管理
+- 📱 移动端适配
+- 🌙 明/暗主题切换
+- 🌍 多语言支持
+- 📷 图像上传与OCR识别
+- 💾 聊天历史保存与恢复
+
+## 技术栈
+
+- **前端框架**: Next.js 15.2.4
+- **UI组件**: React 19.0.0, Ant Design, Tailwind CSS 4
+- **动画效果**: Framer Motion
+- **代码高亮**: Prism, React Syntax Highlighter
+- **状态管理**: React Context API
+- **样式解决方案**: Tailwind CSS
+
+## 快速开始
+
+### 安装依赖
+
+```bash
+npm install
+# 或
+yarn install
+```
+
+### 启动开发服务器
 
 ```bash
 npm run dev
-# or
+# 或
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+然后在浏览器中打开 [http://localhost:3000](http://localhost:3000) 查看应用。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 项目结构
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/               # Next.js 应用路由
+│   ├── api/           # API 路由
+│   ├── chat/          # 聊天页面
+│   ├── login/         # 登录页面
+│   ├── register/      # 注册页面
+│   └── settings/      # 设置页面
+├── components/        # React 组件
+│   ├── chat/          # 聊天相关组件
+│   ├── common/        # 通用组件
+│   ├── layout/        # 布局组件
+│   ├── sections/      # 页面章节组件
+│   └── ui/            # UI 元素组件
+├── contexts/          # React 上下文
+├── lib/               # 工具库
+├── providers/         # 提供者组件
+├── styles/            # 样式文件
+└── utils/             # 工具函数
+```
 
-## Learn More
+## 主要功能
 
-To learn more about Next.js, take a look at the following resources:
+### 聊天功能
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- 实时与AI模型对话
+- 支持深度思考模式
+- 代码高亮显示
+- 图像上传与分析
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 用户系统
 
-## Deploy on Vercel
+- 用户注册与登录
+- 会话历史管理
+- 个人设置
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 多语言支持
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- 支持中文和英文界面
+- 可扩展的语言系统
+
+## 部署
+
+项目可部署在任何支持Node.js的服务器上，推荐使用Vercel进行部署：
+
+```bash
+npm run build
+npm run start
+```
+
+## 贡献
+
+欢迎提交问题和拉取请求，一起改进这个项目！
+
+## 许可证
+
+MIT
