@@ -1,4 +1,4 @@
-# AI 助手全栈应用项目介绍
+# 基于Spring-AI-Alibaba开发的AI 助手
 
 ## 项目概述
 
